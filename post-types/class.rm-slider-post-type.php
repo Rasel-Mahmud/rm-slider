@@ -4,6 +4,7 @@ if( ! class_exists('RM_Slider_Post_Type') ){
     class RM_Slider_Post_Type {
         public function __construct(){
             add_action( 'init', [$this, 'create_post_type'] );
+            add_action( 'add_meta_boxes', [$this, 'add_meta_boxes']);
         }
 
         public function create_post_type(){
@@ -29,6 +30,20 @@ if( ! class_exists('RM_Slider_Post_Type') ){
                 'show_in_rest' => true,
                 'menu_icon' => 'dashicons-images-alt'
             ]);
+        }
+
+        public function add_meta_boxes(){
+            add_meta_box(
+                'rm_slider-meta-box',
+                'Slider Options',
+                [$this, 'rm_slider_inner_meta'],
+                'rm_slider',
+                'advanced',
+                'high'
+            );
+        }
+
+        public function rm_slider_inner_meta($post, $tost, $hello){
         }
     }
 }
