@@ -7,6 +7,9 @@ if( ! class_exists('RM_Slider_Post_Type') ){
             add_action( 'add_meta_boxes', [$this, 'add_meta_boxes']);
         }
 
+        /**
+         * Custom post type created named "rm_slider"
+         */
         public function create_post_type(){
             register_post_type('rm_slider', [
                 'labels' => [
@@ -32,6 +35,9 @@ if( ! class_exists('RM_Slider_Post_Type') ){
             ]);
         }
 
+        /**
+         * "rm_slider" Post type meta box
+         */
         public function add_meta_boxes(){
             add_meta_box(
                 'rm_slider-meta-box',
@@ -43,7 +49,11 @@ if( ! class_exists('RM_Slider_Post_Type') ){
             );
         }
 
-        public function rm_slider_inner_meta($post, $tost, $hello){
+        /**
+         * "rm_slider-meta-box" views file
+         */
+        public function rm_slider_inner_meta(){
+            include_once( RM_plugin_path . 'views/slider-meta-box.php');
         }
     }
 }
