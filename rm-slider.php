@@ -27,6 +27,9 @@ if ( ! class_exists( 'RM_Slider' ) ) {
     class RM_Slider {
         public function __construct(){
             $this->define_constant();
+
+            include_once( RM_plugin_path . 'post-types/class.rm-slider-post-type.php');
+            new RM_Slider_Post_Type();
         }
 
         public function define_constant(){
@@ -40,16 +43,17 @@ if ( ! class_exists( 'RM_Slider' ) ) {
         }
         public static function deactive(){
             flush_rewrite_rules();
+            unregister_post_type( 'rm_slider' );
         }
         public static function uninstall(){
-            
+
         }
     }
 }
 
 if( class_exists( 'RM_Slider' ) ) {
-    register_activation_hook( __FILE__, [RM_Slider, 'active'] );
-    register_deactivation_hook( __FILE__, [RM_Slider, 'deactive'] );
-    register_uninstall_hook( __FILE__, [RM_Slider, 'uninstall'] );
+    register_activation_hook( __FILE__, ['RM_Slider', 'active'] );
+    register_deactivation_hook( __FILE__, ['RM_Slider', 'deactive'] );
+    register_uninstall_hook( __FILE__, ['RM_Slider', 'uninstall'] );
     $init = new RM_Slider();
 }
