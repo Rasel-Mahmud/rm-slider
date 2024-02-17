@@ -19,3 +19,24 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
+
+/**
+ * Main Plugin Class
+ */
+if ( ! class_exists( 'RM_Slider' ) ) {
+    class RM_Slider {
+        public function __construct(){
+            $this->define_constant();
+        }
+
+        public function define_constant(){
+            define( 'RM_plugin_path', plugin_dir_path( __FILE__ ) );
+            define( 'RM_plugin_url', plugin_dir_url( __FILE__ ) );
+            define( 'RM_plugin_version', '1.0.0' );
+        }
+    }
+}
+
+if( class_exists( 'RM_Slider' ) ) {
+    $init = new RM_Slider();
+}
