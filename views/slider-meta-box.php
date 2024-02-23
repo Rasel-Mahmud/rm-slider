@@ -1,3 +1,8 @@
+<?php
+$link_text = get_post_meta( get_the_ID(), 'rm_slider_link_text', true );
+$link_url = get_post_meta( get_the_ID(), 'rm_slider_link_url', true );
+
+?>
 <table class="form-table rm-slider-meta-box">
     <tr>
         <th>
@@ -9,7 +14,7 @@
                 class="regular-text link-text"
                 name="rm_slider_link_text"
                 id="rm-slider-link-text"
-                value=""
+                value="<?php echo $link_text ? esc_html( $link_text ) : ''; ?>"
                 required
             >
         </td>
@@ -24,7 +29,7 @@
                 class="regular-text link-text"
                 name="rm_slider_link_url"
                 id="rm-slider-link-url"
-                value=""
+                value="<?php echo $link_url ? esc_url( $link_url ) : '' ?>"
                 required
             >
         </td>

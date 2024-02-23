@@ -5,6 +5,7 @@ if( ! class_exists('RM_Slider_Post_Type') ){
         public function __construct(){
             add_action( 'init', [$this, 'create_post_type'] );
             add_action( 'add_meta_boxes', [$this, 'add_meta_boxes']);
+            add_action( 'save_post', [$this, 'save_post'] );
         }
 
         /**
@@ -55,5 +56,18 @@ if( ! class_exists('RM_Slider_Post_Type') ){
         public function rm_slider_inner_meta(){
             include_once( RM_plugin_path . 'views/slider-meta-box.php');
         }
+
+        public function save_post($post_id){
+            if( isset($_POST['action']) && $_POST['action'] == 'editpost' ){
+                $old_link_text = get_post_meta( $post_id, 'rm_slider_link_text', true );
+                $new_link_text = $_POST['rm_slider_link_text'];
+
+                $old_link_url = get_post_meta( $post_id, 'rm_slider_link_url',true );
+                $new_link_url = $_POST['rm_slider_link_url'];
+
+                update_post_meta( $post_id, 'rm_slider_link_text', sanitize_text_field( $new_link_text ), $old_link_text );
+                update_post_meta( $post_id, 'rm_slider_link_url', sanitize_text_field($new_link_url), $old_link_url );
+            }
+        }
     }
-}
+} 
