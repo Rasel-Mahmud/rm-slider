@@ -18,8 +18,8 @@ if( ! class_exists('RM_Slider_Shortcode') ){
             ob_start();
             require( RM_plugin_path . 'views/slider-shortcode.php' );
             wp_enqueue_script( 'rm-slider-mian-jq' );
-            wp_enqueue_script( 'rm-slider-option-jq' );
             wp_enqueue_style( 'rm-slider-style' );
+            rm_slider_options();
             return ob_get_clean();
         }
     }
