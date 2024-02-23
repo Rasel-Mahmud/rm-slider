@@ -36,6 +36,9 @@ if ( ! class_exists( 'RM_Slider' ) ) {
 
             include_once( RM_plugin_path . 'class.slider-settings.php' );
             new RM_Slider_Settings();
+
+            include_once( RM_plugin_path . 'shortcode/class.rm-slider-shortcode.php' );
+            new RM_Slider_Shortcode();
         }
 
         public function define_constant(){
