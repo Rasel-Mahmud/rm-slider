@@ -33,6 +33,9 @@ if ( ! class_exists( 'RM_Slider' ) ) {
 
             include_once( RM_plugin_path . 'post-types/class.rm-slider-post-type.php');
             new RM_Slider_Post_Type();
+
+            include_once( RM_plugin_path . 'class.slider-settings.php' );
+            new RM_Slider_Settings();
         }
 
         public function define_constant(){
