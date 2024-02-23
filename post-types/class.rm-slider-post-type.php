@@ -58,6 +58,29 @@ if( ! class_exists('RM_Slider_Post_Type') ){
         }
 
         public function save_post($post_id){
+
+            // WP Nonce Verification
+            if( isset($_POST['_rm_slider_nonce'] ) ){
+                if( ! wp_verify_nonce( $_POST['_rm_slider_nonce'], '_rm_slider_nonce' ) ){
+                    return;
+                }
+            }
+
+            // NOT save data while auto saving the post
+            if( defined( 'DOING_AUTOSAVE' ) &&  DOING_AUTOSAVE){
+                return;
+            }
+
+            // Check if current user can
+            if( isset($_POST['post_type']) && $_POST['post_type'] == 'rm_slider'){
+                if( ! current_user_can( 'edit_post', $post_id ) ){
+                    return;
+                }elseif( ! current_user_can( 'edit_page', $post_id ) ){
+                    return;
+                }
+            }
+
+            // Update the post meta
             if( isset($_POST['action']) && $_POST['action'] == 'editpost' ){
                 $old_link_text = get_post_meta( $post_id, 'rm_slider_link_text', true );
                 $new_link_text = $_POST['rm_slider_link_text'];

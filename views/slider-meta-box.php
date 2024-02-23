@@ -4,6 +4,7 @@ $link_url = get_post_meta( get_the_ID(), 'rm_slider_link_url', true );
 
 ?>
 <table class="form-table rm-slider-meta-box">
+<input type="hidden" name="_rm_slider_nonce" value="<?php echo wp_create_nonce( '_rm_slider_nonce' ); ?>">
     <tr>
         <th>
             <label for="rm_slider_link_text">Link Text</label>
