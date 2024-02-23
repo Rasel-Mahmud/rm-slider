@@ -6,6 +6,11 @@ if( ! class_exists('RM_Slider_Post_Type') ){
             add_action( 'init', [$this, 'create_post_type'] );
             add_action( 'add_meta_boxes', [$this, 'add_meta_boxes']);
             add_action( 'save_post', [$this, 'save_post'] );
+            
+            // POST Columns
+            add_filter( 'manage_rm_slider_posts_columns', [$this, 'rm_slider_columns']);
+            add_action( 'manage_rm_slider_posts_custom_column', [$this, 'rm_slider_custom_column'], 10, 2 );
+            add_filter( 'manage_edit-rm_slider_sortable_columns', [$this, 'sortale_column'] );
         }
 
         /**
@@ -91,6 +96,34 @@ if( ! class_exists('RM_Slider_Post_Type') ){
                 update_post_meta( $post_id, 'rm_slider_link_text', sanitize_text_field( $new_link_text ), $old_link_text );
                 update_post_meta( $post_id, 'rm_slider_link_url', sanitize_text_field($new_link_url), $old_link_url );
             }
+        }
+
+        /**
+         * POST Columns
+         */
+        public function rm_slider_columns($column){
+            $column['rm_slider_text'] = esc_html__( "Link Text", "rm-slider" );
+            $column['rm_slider_url'] = esc_html__( "Link URL", "rm-slider" );
+            return $column;
+        }
+
+        /**
+         * POST Column Text
+         */
+        public function rm_slider_custom_column($column, $post_id){
+            switch($column){
+                case 'rm_slider_text':
+                    echo esc_html( get_post_meta( $post_id, 'rm_slider_link_text', true ) );
+                break;
+                case 'rm_slider_link_url':
+                    echo esc_html( get_post_meta( $post_id, 'rm_slider_link_url', true ) );
+                break;
+            }
+        }
+
+        public function sortale_column( $columns ){
+            $columns['rm_slider_text'] = "rm_slider_text";
+            return $columns;
         }
     }
 } 
