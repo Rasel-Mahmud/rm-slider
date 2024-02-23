@@ -73,7 +73,10 @@ if ( ! class_exists( 'RM_Slider' ) ) {
          * Admin Menu Content
          */
         public function rm_slider_menu(){
-           include RM_plugin_path . 'views/slider-options.php';
+            if( ! current_user_can( 'manage_options' ) ){
+                return;
+            }
+            include RM_plugin_path . 'views/slider-options.php';
         }
     }
 }
