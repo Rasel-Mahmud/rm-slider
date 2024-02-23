@@ -28,6 +28,9 @@ if ( ! class_exists( 'RM_Slider' ) ) {
         public function __construct(){
             $this->define_constant();
 
+            // Admin menu
+            add_action( 'admin_menu', [$this, 'add_menu'] );
+
             include_once( RM_plugin_path . 'post-types/class.rm-slider-post-type.php');
             new RM_Slider_Post_Type();
         }
@@ -47,6 +50,27 @@ if ( ! class_exists( 'RM_Slider' ) ) {
         }
         public static function uninstall(){
 
+        }
+
+        /**
+         * Add Admin Menu
+         */
+        public function add_menu(){
+            add_submenu_page(
+                "options-general.php",
+                "RM Slider",
+                "RM Slider",
+                "manage_options",
+                "rm-slider",
+                [$this, 'rm_slider_menu'],
+            );
+        }
+
+        /**
+         * Admin Menu Content
+         */
+        public function rm_slider_menu(){
+           include RM_plugin_path . 'views/slider-options.php';
         }
     }
 }
