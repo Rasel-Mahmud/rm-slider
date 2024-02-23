@@ -1,5 +1,5 @@
 <h3><?php echo esc_html( $content ); ?></h3>
-<div class="flexslider">
+<div class="flexslider <?php echo isset( RM_Slider_Settings::$options['rm_slider_style']) ? RM_Slider_Settings::$options['rm_slider_style'] : 'style-1'; ?>">
   <ul class="slides">
     <?php
     $args = [
